@@ -7,7 +7,7 @@ export const generateProducts = (length: number): Product[] => {
    return Array.from({ length }, () => ({
       id: randomUUID(),
       name: faker.lorem.words({ min: 1, max: 4 }),
-      description: faker.lorem.paragraph({ min: 2, max: 10 }),
+      description: faker.lorem.paragraph({ min: 1, max: 2 }),
       color: faker.helpers.enumValue(Color),
       category: faker.helpers.enumValue(Category),
       price: faker.number.int({ min: 10, max: 9999 }),
