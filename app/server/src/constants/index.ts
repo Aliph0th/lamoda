@@ -1,4 +1,4 @@
-import { Color, Product, SortTypes } from '../types';
+import { Color, Product, SortTypes } from 'common';
 
 export const SORT_COMPARE_FN_MAP: Record<SortTypes, (a: Product, b: Product) => number> =
    {

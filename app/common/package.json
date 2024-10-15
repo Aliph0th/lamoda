@@ -1,0 +1,7 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "author": "Aliph0th",
+  "license": "ISC"
+}

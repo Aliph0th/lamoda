@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import service, { DatabaseService } from '../database/database.service';
 import { validationResult } from 'express-validator';
-import { Color, FilterRequest, SortTypes } from '../types';
 import { RELEVANCE } from '../constants';
+import { FilterRequest, Color, SortTypes, ProductResponse } from 'common';
 
 export class ProductController {
    private readonly databaseService: DatabaseService;
@@ -30,7 +30,7 @@ export class ProductController {
          currentPage: page,
          currentLimit: limit,
          products: relevantProducts.slice(startIndex, startIndex + limit)
-      });
+      } as ProductResponse);
    };
 
    private getRelevantProducts = (filter: FilterRequest) => {

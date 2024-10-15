@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import Loader from './components/ui/Loader';
 import { API } from './api';
+import { ProductResponse } from 'common';
 
 function App() {
    const [loading, setLoading] = useState<boolean>(false);
@@ -9,7 +10,8 @@ function App() {
    useEffect(() => {
       setLoading(true);
       const fetchProducts = async () => {
-         await API.get('/product');
+         const { data } = await API.get<ProductResponse>('/product');
+         console.log(data);
       };
       fetchProducts().finally(() => setLoading(false));
    }, []);
