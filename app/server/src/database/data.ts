@@ -20,11 +20,11 @@ export const generateProducts = (length: number): Product[] => {
    return Array.from({ length }, () => ({
       id: randomUUID(),
       name: faker.lorem.words({ min: 1, max: 4 }),
-      description: faker.lorem.paragraph({ min: 1, max: 2 }),
+      description: faker.lorem.paragraph(1),
       color: faker.helpers.arrayElement(colors),
       category: faker.helpers.arrayElement(categories),
       price: faker.number.int({ min: 10, max: 9999 }),
       rating: faker.number.float({ min: 0, max: 5, fractionDigits: 1 }),
-      imageURL: `https://via.placeholder.com/150/${faker.color.rgb().slice(1)}`
+      imageURL: `https://via.placeholder.com/100/${faker.color.rgb().slice(1)}`
    }));
 };
