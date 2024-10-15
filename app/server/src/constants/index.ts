@@ -1,16 +1,10 @@
 import { Color, Product, SortTypes } from '../types';
 
-export const SORT_OPTIONS = {
-   POPULAR: 'popular',
-   ASC: 'asc',
-   DESC: 'desc'
-} as const;
-
 export const SORT_COMPARE_FN_MAP: Record<SortTypes, (a: Product, b: Product) => number> =
    {
-      popular: (a: Product, b: Product) => b.rating - a.rating,
-      asc: (a: Product, b: Product) => a.price - b.price,
-      desc: (a: Product, b: Product) => b.price - a.price
+      popular: (a, b) => b.rating - a.rating,
+      asc: (a, b) => a.price - b.price,
+      desc: (a, b) => b.price - a.price
    };
 export const RELEVANCE = {
    sort: (products: Product[], method: SortTypes) =>

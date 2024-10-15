@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import service, { DatabaseService } from '../database/database.service';
 import { validationResult } from 'express-validator';
-import { Color, FilterRequest } from '../types';
+import { Color, FilterRequest, SortTypes } from '../types';
 import { RELEVANCE } from '../constants';
 
 export class ProductController {
@@ -18,19 +18,18 @@ export class ProductController {
       }
 
       const relevantProducts = this.getRelevantProducts(req.query);
+
       const page = +(req.query?.page || 1);
       const limit = +(req.query?.limit || 10);
       const totalProducts = relevantProducts.length;
-
       const startIndex = (page - 1) * limit
-      const paginatedProducts = relevantProducts.slice(startIndex, startIndex + limit);
 
       res.status(200).json({
          totalProducts,
          totalPages: Math.ceil(totalProducts / limit),
          currentPage: page,
          currentLimit: limit,
-         products: paginatedProducts
+         products: relevantProducts.slice(startIndex, startIndex + limit)
       });
    };
 
@@ -41,7 +40,7 @@ export class ProductController {
       const colorsFilter = (filter?.colors?.split(/,\s*/g) as Color[]) || [];
       const priceFilter =
          (filter?.price?.split(/,\s*/g)?.map(x => +x) as [number, number]) || [];
-      const sortFilter = filter?.sort || 'popular';
+      const sortFilter: SortTypes = filter?.sort || 'popular';
 
       if (queryFilter) {
          products = RELEVANCE.query(products, queryFilter);

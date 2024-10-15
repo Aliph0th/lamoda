@@ -1,5 +1,3 @@
-import { SORT_OPTIONS } from '../constants';
-
 export type Product = {
    id: string;
    name: string;
@@ -34,4 +32,4 @@ export enum Category {
    Bag = 'bag'
 };
 
-export type SortTypes = (typeof SORT_OPTIONS)[keyof typeof SORT_OPTIONS];
+export type SortTypes = 'popular' | 'asc' | 'desc';

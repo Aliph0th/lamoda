@@ -1,4 +1,3 @@
-import { SORT_OPTIONS } from '../constants';
 import { SortTypes } from './product';
 
 export type FilterRequest = {
