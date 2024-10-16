@@ -25,6 +25,6 @@ export const generateProducts = (length: number): Product[] => {
       category: faker.helpers.arrayElement(categories),
       price: faker.number.int({ min: 10, max: 9999 }),
       rating: faker.number.float({ min: 0, max: 5, fractionDigits: 1 }),
-      imageURL: `https://via.placeholder.com/100/${faker.color.rgb().slice(1)}`
+      imageURL: `https://dummyjson.com/image/150/${faker.color.rgb().slice(1)}`
    }));
 };
