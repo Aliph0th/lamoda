@@ -12,7 +12,9 @@ function App() {
    useEffect(() => {
       setLoading(true);
       const fetchProducts = async () => {
-         const { data } = await API.get<ProductResponse>('/product?page=25');
+         const { data } = await API.get<ProductResponse>('/product', {
+            params: new URLSearchParams(window.location.search)
+         });
          setProducts(data.products);
       };
       fetchProducts().finally(() => setLoading(false));
