@@ -23,4 +23,4 @@ export const RELEVANCE = {
       }),
    colors: (products: Product[], colors: Color[]) =>
       products.filter(product => colors.includes(product.color))
-} as const;
+};

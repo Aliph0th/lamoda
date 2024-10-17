@@ -1,4 +1,4 @@
-import { query, validationResult } from 'express-validator';
+import { query } from 'express-validator';
 
 export const productsQueryValidators = [
    query('q')
