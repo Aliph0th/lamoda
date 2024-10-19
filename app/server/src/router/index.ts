@@ -6,6 +6,4 @@ const router = Router();
 
 router.get('/product', ...productsQueryValidators, productController.get);
 
-router.get('/metadata', productController.meta)
-
 export default router;

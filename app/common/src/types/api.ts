@@ -10,13 +10,9 @@ export type FilterRequest = {
 };
 
 export type ProductResponse = {
-   totalProducts: number,
-   totalPages: number,
-   currentPage: number,
-   currentLimit: number,
-   products: Product[]
-}
-
-export type MetadataResponse = {
-   priceLimits: [number, number]
-}
+   totalProducts: number;
+   totalPages: number;
+   currentPage: number;
+   currentLimit: number;
+   products: Product[];
+};
