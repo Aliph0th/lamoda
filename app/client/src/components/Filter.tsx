@@ -1,12 +1,11 @@
 import { FC } from 'react';
 import MultiSlider from './ui/MultiSlider';
-import { MetadataResponse } from 'common';
 import Loader from './ui/Loader';
 
 interface FilterProps {
    loading: boolean;
    totalProducts?: number;
-   priceLimits: MetadataResponse['priceLimits'];
+   priceLimits: [number, number];
 }
 const Filter: FC<FilterProps> = ({ loading, totalProducts, priceLimits }) => {
    return (

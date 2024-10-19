@@ -1,29 +1,31 @@
-import { useEffect, useState } from 'react';
-import Filter from './components/Filter';
-import Loader from './components/ui/Loader';
+import { ProductResponse } from 'common';
+import { useEffect, useMemo, useState } from 'react';
 import { API } from './api';
-import { MetadataResponse, ProductResponse } from 'common';
+import Filter from './components/Filter';
 import ProductList from './components/products/ProductList';
+import Loader from './components/ui/Loader';
 
 function App() {
    const [loading, setLoading] = useState<boolean>(false);
    const [products, setProducts] = useState<ProductResponse>();
-   const [priceLimits, setPriceLimits] = useState<MetadataResponse['priceLimits']>([-1, -1]);
 
    useEffect(() => {
       setLoading(true);
       const fetchData = async () => {
-         const [productResponse, metadataResponse] = await Promise.all([
-            API.get<ProductResponse>('/product', {
-               params: new URLSearchParams(window.location.search)
-            }),
-            API.get<MetadataResponse>('/metadata')
-         ]);
-         setProducts(productResponse.data);
-         setPriceLimits(metadataResponse.data.priceLimits);
+         const { data } = await API.get<ProductResponse>('/product', {
+            params: new URLSearchParams(window.location.search)
+         });
+         setProducts(data);
       };
       fetchData().finally(() => setLoading(false));
    }, []);
+
+   const priceLimits: [number, number] = useMemo(() => {
+      if (!products) return [-1, -1];
+      const sortedProducts = products.products.toSorted((a, b) => a.price - b.price);
+      const min = sortedProducts[0]?.price || -1;
+      return [min, sortedProducts.at(-1)?.price || min];
+   }, [products]);
 
    return (
       <main className="m-auto py-8 w-10/12">
