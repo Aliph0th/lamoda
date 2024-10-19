@@ -8,6 +8,7 @@ import ProductList from './components/products/ProductList';
 function App() {
    const [loading, setLoading] = useState<boolean>(false);
    const [products, setProducts] = useState<Product[]>([]);
+   const [totalProducts, setTotalProducts] = useState<number>(0);
 
    useEffect(() => {
       setLoading(true);
@@ -16,6 +17,7 @@ function App() {
             params: new URLSearchParams(window.location.search)
          });
          setProducts(data.products);
+         setTotalProducts(data.totalProducts);
       };
       fetchProducts().finally(() => setLoading(false));
    }, []);
@@ -23,8 +25,8 @@ function App() {
    return (
       <main className="m-auto py-8 w-10/12">
          <h1 className="font-bold text-4xl">Lamoda</h1>
-         <div className="mt-4 grid grid-cols-[2fr_5fr]">
-            <Filter />
+         <div className="mt-4 grid grid-cols-[2fr_5fr] gap-x-10">
+            <Filter totalProducts={totalProducts} />
             {loading ? <Loader /> : <ProductList products={products} />}
          </div>
       </main>
