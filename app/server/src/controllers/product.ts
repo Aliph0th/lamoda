@@ -2,7 +2,13 @@ import { Request, Response } from 'express';
 import service, { DatabaseService } from '../database/database.service';
 import { validationResult } from 'express-validator';
 import { RELEVANCE } from '../constants';
-import { FilterRequest, Color, SortTypes, ProductResponse } from 'common';
+import {
+   FilterRequest,
+   Color,
+   SortTypes,
+   ProductResponse,
+   MetadataResponse
+} from 'common';
 
 export class ProductController {
    private readonly databaseService: DatabaseService;
@@ -22,7 +28,7 @@ export class ProductController {
       const page = +(req.query?.page || 1);
       const limit = +(req.query?.limit || 10);
       const totalProducts = relevantProducts.length;
-      const startIndex = (page - 1) * limit
+      const startIndex = (page - 1) * limit;
 
       res.status(200).json({
          totalProducts,
@@ -31,6 +37,12 @@ export class ProductController {
          currentLimit: limit,
          products: relevantProducts.slice(startIndex, startIndex + limit)
       } as ProductResponse);
+   };
+
+   meta = (req: Request, res: Response) => {
+      res.status(200).json({
+         priceLimits: this.databaseService.getPriceLimits()
+      } as MetadataResponse);
    };
 
    private getRelevantProducts = (filter: FilterRequest) => {

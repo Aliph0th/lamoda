@@ -16,3 +16,7 @@ export type ProductResponse = {
    currentLimit: number,
    products: Product[]
 }
+
+export type MetadataResponse = {
+   priceLimits: [number, number]
+}
