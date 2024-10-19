@@ -5,7 +5,7 @@ import Loader from './ui/Loader';
 
 interface FilterProps {
    loading: boolean;
-   totalProducts: number;
+   totalProducts?: number;
    priceLimits: MetadataResponse['priceLimits'];
 }
 const Filter: FC<FilterProps> = ({ loading, totalProducts, priceLimits }) => {
@@ -27,7 +27,7 @@ const Filter: FC<FilterProps> = ({ loading, totalProducts, priceLimits }) => {
             />
          )}
 
-         <span className="font-medium">Total: {totalProducts}</span>
+         <span className="font-medium flex gap-2">Total: {totalProducts || <Loader sm />}</span>
       </div>
    );
 };
