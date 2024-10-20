@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import MultiSlider from './ui/MultiSlider';
+import MultiSlider from './ui/MultiSlider/MultiSlider';
 import Loader from './ui/Loader';
 
 interface FilterProps {
