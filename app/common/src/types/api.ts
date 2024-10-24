@@ -1,4 +1,4 @@
-import { Product, SortTypes } from './product';
+import { Color, Product, SortTypes } from './product';
 
 export type FilterRequest = {
    q?: string;
@@ -15,4 +15,10 @@ export type ProductResponse = {
    currentPage: number;
    currentLimit: number;
    products: Product[];
+};
+
+export type ProductMetadata = {
+   priceRange: [number, number],
+   availableColors: Color[];
+   availableSorts: SortTypes[];
 };

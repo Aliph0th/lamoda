@@ -1,8 +1,14 @@
 import { Request, Response } from 'express';
 import service, { DatabaseService } from '../database/database.service';
 import { validationResult } from 'express-validator';
-import { RELEVANCE } from '../constants';
-import { FilterRequest, Color, SortTypes, ProductResponse } from 'common';
+import { RELEVANCE, SORT_COMPARE_FN_MAP } from '../constants';
+import {
+   FilterRequest,
+   Color,
+   SortTypes,
+   ProductResponse,
+   ProductMetadata
+} from 'common';
 
 export class ProductController {
    private readonly databaseService: DatabaseService;
@@ -31,6 +37,14 @@ export class ProductController {
          currentLimit: limit,
          products: relevantProducts.slice(startIndex, startIndex + limit)
       } as ProductResponse);
+   };
+
+   metadata = (req: Request, res: Response) => {
+      res.status(200).json({
+         priceRange: this.databaseService.selectPriceLimits(),
+         availableColors: this.databaseService.selectAvailableColors(),
+         availableSorts: Object.keys(SORT_COMPARE_FN_MAP)
+      } as ProductMetadata);
    };
 
    private getRelevantProducts = (filter: FilterRequest) => {
