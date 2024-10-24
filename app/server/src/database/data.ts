@@ -23,7 +23,7 @@ export const generateProducts = (length: number): Product[] => {
       description: faker.lorem.paragraph(1),
       color: faker.helpers.arrayElement(colors),
       category: faker.helpers.arrayElement(categories),
-      price: faker.number.int({ min: 10, max: 9999 }),
+      price: faker.number.int({ min: 1000, max: 5999 }),
       rating: faker.number.float({ min: 0, max: 5, fractionDigits: 1 }),
       imageURL: `https://dummyjson.com/image/150/${faker.color.rgb().slice(1)}`
    }));
