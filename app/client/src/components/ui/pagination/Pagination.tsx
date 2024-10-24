@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useMemo } from 'react';
 import arrow from '@assets/arrow.svg';
 import doubleArrow from '@assets/double-arrow.svg';
 import PaginationButton from './PaginationButton';
@@ -12,11 +12,9 @@ interface PaginationProps {
    handleParamsChange: (filters: FilterRequest) => void;
 }
 
-const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, handleParamsChange }) => {
-   const [perPage, setPerPage] = useState<keyof typeof PER_PAGE_VALUES>(PER_PAGE_VALUES[0]);
-
+const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, perPage, handleParamsChange }) => {
    const handlePerPageChange = (e: ChangeEvent<HTMLSelectElement>) => {
-      setPerPage(+e.target.value);
+      handleParamsChange({ limit: e.target.value });
    };
 
    const handlePageChange = (page: number) => {

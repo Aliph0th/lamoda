@@ -28,7 +28,10 @@ function App() {
    }, [searchParams]);
 
    const handleParamsChange = (filters: FilterRequest) => {
-      setSearchParams({ ...filters, ...searchParams });
+      Object.entries(filters).forEach(([key, value]) => {
+         searchParams.set(key, value);
+      });
+      setSearchParams(searchParams);
    };
 
    return (

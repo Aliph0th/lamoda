@@ -19,11 +19,7 @@ const Filter: FC<FilterProps> = ({ loading, totalProducts, priceLimits }) => {
          {loading || !priceLimits ? (
             <Loader />
          ) : (
-            <MultiSlider
-               minValue={priceLimits[0]}
-               maxValue={priceLimits[1]}
-               onChange={(min, max) => console.log(min, max)}
-            />
+            <MultiSlider minValue={priceLimits[0]} maxValue={priceLimits[1]} onChange={(min, max) => {}} />
          )}
 
          <span className="font-medium flex gap-2">Total: {totalProducts || <Loader sm />}</span>
