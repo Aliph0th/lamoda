@@ -21,9 +21,11 @@ const ProductItem: FC<ProductItemProps> = ({ product }) => {
                </span>
 
                <div className="flex justify-between">
-                  <span className="text-gray-600">
+                  <span className="text-gray-600" title="Shekel">
                      {product.price}
-                     <span className="text-lg">&#8362;</span>
+                     <span className="text-lg" title="Shekel">
+                        &#8362;
+                     </span>
                   </span>
                   <div className="flex justify-center items-center gap-x-2 text-gray-600">
                      <img src={star} alt="rating" className="w-6" />

@@ -5,7 +5,7 @@ import Loader from './ui/Loader';
 interface FilterProps {
    loading: boolean;
    totalProducts?: number;
-   priceLimits: [number, number];
+   priceLimits?: [number, number];
 }
 const Filter: FC<FilterProps> = ({ loading, totalProducts, priceLimits }) => {
    return (
@@ -16,7 +16,7 @@ const Filter: FC<FilterProps> = ({ loading, totalProducts, priceLimits }) => {
             className="mb-3 bg-white disabled:bg-gray-200 border-gray-300 text-gray-900 focus:ring-blue-200 border text-sm rounded-lg focus:ring-2 focus:outline-none w-full p-2"
             placeholder="Search by name or description"
          />
-         {loading ? (
+         {loading || !priceLimits ? (
             <Loader />
          ) : (
             <MultiSlider
