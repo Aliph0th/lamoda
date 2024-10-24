@@ -12,6 +12,14 @@ module.exports = {
    plugins: ['react-refresh', 'eslint-plugin-import', 'prettier'],
    rules: {
       'prettier/prettier': 'warn',
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }]
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      '@typescript-eslint/no-unused-vars': [
+         'warn',
+         {
+            argsIgnorePattern: '^_$',
+            varsIgnorePattern: '^_$',
+            caughtErrorsIgnorePattern: '^_$'
+         }
+      ]
    }
 };
