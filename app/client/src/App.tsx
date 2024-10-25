@@ -2,7 +2,7 @@ import { FilterRequest, ProductMetadata, ProductResponse } from 'common';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { API } from './api';
-import Filter from './components/Filter';
+import Filter from './components/filtration/Filter';
 import ProductList from './components/products/ProductList';
 import Loader from './components/ui/Loader';
 
@@ -28,10 +28,11 @@ function App() {
    }, [searchParams]);
 
    const handleParamsChange = (filters: FilterRequest) => {
+      const params = new URLSearchParams(searchParams);
       Object.entries(filters).forEach(([key, value]) => {
-         searchParams.set(key, value);
+         params.set(key, value);
       });
-      setSearchParams(searchParams);
+      setSearchParams(params);
    };
 
    return (
@@ -42,11 +43,16 @@ function App() {
                loading={loading || !products}
                totalProducts={products?.totalProducts}
                priceLimits={metadata?.priceRange}
+               availableColors={metadata?.availableColors}
             />
-            {loading || !products ? (
+            {loading || !products || !metadata?.availableSorts ? (
                <Loader />
             ) : (
-               <ProductList productsData={products} handleParamsChange={handleParamsChange} />
+               <ProductList
+                  productsData={products}
+                  availableSorts={metadata.availableSorts}
+                  handleParamsChange={handleParamsChange}
+               />
             )}
          </div>
       </main>

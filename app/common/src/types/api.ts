@@ -14,6 +14,7 @@ export type ProductResponse = {
    totalPages: number;
    currentPage: number;
    currentLimit: number;
+   currentSort: SortTypes;
    products: Product[];
 };
 
