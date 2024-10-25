@@ -35,13 +35,14 @@ export class ProductController {
          totalPages: Math.ceil(totalProducts / limit),
          currentPage: page,
          currentLimit: limit,
+         currentSort: req.query?.sort || 'popular',
          products: relevantProducts.slice(startIndex, startIndex + limit)
-      } as ProductResponse);
+      } satisfies ProductResponse);
    };
 
    metadata = (req: Request, res: Response) => {
       res.status(200).json({
-         priceRange: this.databaseService.selectPriceLimits(),
+         ...this.databaseService.selectPriceLimits(),
          availableColors: this.databaseService.selectAvailableColors(),
          availableSorts: Object.keys(SORT_COMPARE_FN_MAP)
       } as ProductMetadata);

@@ -19,7 +19,8 @@ export type ProductResponse = {
 };
 
 export type ProductMetadata = {
-   priceRange: [number, number],
+   highestPrice: number;
+   lowestPrice: number;
    availableColors: Color[];
    availableSorts: SortTypes[];
 };
