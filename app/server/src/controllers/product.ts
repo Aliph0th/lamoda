@@ -30,9 +30,13 @@ export class ProductController {
       const totalProducts = relevantProducts.length;
       const startIndex = (page - 1) * limit;
 
+      const priceRange = req.query?.price?.split(/,\s*/g)?.map(Number)
+
       res.status(200).json({
          totalProducts,
          totalPages: Math.ceil(totalProducts / limit),
+         currentMinPrice: priceRange?.[0],
+         currentMaxPrice: priceRange?.[1],
          currentPage: page,
          currentLimit: limit,
          currentSort: req.query?.sort || 'popular',
@@ -54,7 +58,7 @@ export class ProductController {
       const queryFilter = filter?.q || '';
       const colorsFilter = (filter?.colors?.split(/,\s*/g) as Color[]) || [];
       const priceFilter =
-         (filter?.price?.split(/,\s*/g)?.map(x => +x) as [number, number]) || [];
+         (filter?.price?.split(/,\s*/g)?.map(Number) as [number, number]) || [];
       const sortFilter: SortTypes = filter?.sort || 'popular';
 
       if (queryFilter) {

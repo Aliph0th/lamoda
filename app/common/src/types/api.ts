@@ -15,6 +15,8 @@ export type ProductResponse = {
    currentPage: number;
    currentLimit: number;
    currentSort: SortTypes;
+   currentMinPrice?: number;
+   currentMaxPrice?: number;
    products: Product[];
 };
 
