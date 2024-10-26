@@ -1,15 +1,23 @@
 import { Product } from 'common';
-import { FC } from 'react';
-import star from '../../assets/star.svg';
+import { FC, useState } from 'react';
+import star from '@assets/star.svg';
+import placeholder from '@assets/placeholder.png';
 
 interface ProductItemProps {
    product: Product;
 }
 
 const ProductItem: FC<ProductItemProps> = ({ product }) => {
+   const [loading, setLoading] = useState<boolean>(true);
    return (
       <div className="bg-gray-100 rounded-lg flex flex-col justify-between shadow-md hover:scale-[1.02] transition-transform">
-         <img className="rounded-t-lg" src={product.imageURL} alt={product.name} />
+         {loading && <img src={placeholder} alt="" className="rounded-t-lg" />}
+         <img
+            className={`rounded-t-lg ${loading ? 'hidden' : ''}`}
+            src={product.imageURL}
+            alt={product.name}
+            onLoad={() => setLoading(false)}
+         />
          <div className="p-3 grow flex flex-col justify-between">
             <div className="flex flex-col">
                <span className="font-medium text-lg">{product.name}</span>
