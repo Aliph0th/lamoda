@@ -4,12 +4,14 @@ import './MultiSlider.css';
 interface MultiSliderProps {
    minValue: number;
    maxValue: number;
+   currentMin?: number;
+   currentMax?: number;
    onChange: (min: number, max: number) => void;
 }
 
-const MultiSlider: FC<MultiSliderProps> = ({ minValue, maxValue, onChange }) => {
-   const [min, setMin] = useState<number>(minValue);
-   const [max, setMax] = useState<number>(maxValue);
+const MultiSlider: FC<MultiSliderProps> = ({ minValue, maxValue, currentMin, currentMax, onChange }) => {
+   const [min, setMin] = useState<number>(currentMin || minValue);
+   const [max, setMax] = useState<number>(currentMax || maxValue);
    const [left, setLeft] = useState<number>(0);
    const [width, setWidth] = useState<number>(0);
 

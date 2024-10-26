@@ -1,17 +1,19 @@
 import { ProductResponse, SortTypes } from 'common';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { FilterParams } from '../../types';
 import Sort from '../filtration/Sort';
 import Pagination from '../ui/pagination/Pagination';
 import ProductItem from './Product';
+import Loader from '../ui/Loader';
 
 interface ProductListProps {
    productsData: ProductResponse;
    availableSorts: SortTypes[];
+   loading: boolean;
    handleParamsChange: (filters: FilterParams) => void;
 }
 
-const ProductList: FC<ProductListProps> = ({ productsData, availableSorts, handleParamsChange }) => {
+const ProductList: FC<ProductListProps> = ({ loading, productsData, availableSorts, handleParamsChange }) => {
    return (
       <>
          <div>
@@ -29,14 +31,22 @@ const ProductList: FC<ProductListProps> = ({ productsData, availableSorts, handl
                />
             </div>
             <div className="mt-3 grid max-[472px]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-               {productsData.totalProducts ? (
-                  <>
-                     {productsData.products.map(product => (
-                        <ProductItem key={product.id} product={product} />
-                     ))}
-                  </>
+               {loading ? (
+                  <div className="col-start-2">
+                     <Loader />
+                  </div>
                ) : (
-                  <span className="font-medium text-gray-400 text-center col-start-2">No products found</span>
+                  <>
+                     {productsData.totalProducts ? (
+                        <>
+                           {productsData.products.map(product => (
+                              <ProductItem key={product.id} product={product} />
+                           ))}
+                        </>
+                     ) : (
+                        <span className="font-medium text-gray-400 text-center col-start-2">No products found</span>
+                     )}
+                  </>
                )}
             </div>
          </div>
@@ -44,4 +54,4 @@ const ProductList: FC<ProductListProps> = ({ productsData, availableSorts, handl
    );
 };
 
-export default ProductList;
+export default memo(ProductList);

@@ -31,6 +31,9 @@ const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, perPage: cur
       [totalPages]
    );
    useEffect(() => {
+      setPage(currentPage);
+   }, [currentPage]);
+   useEffect(() => {
       handleParamsChange({ page: debouncedPage.toString(), limit: debouncedPerPage.toString() });
    }, [handleParamsChange, debouncedPage, debouncedPerPage]);
 
