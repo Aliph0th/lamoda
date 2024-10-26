@@ -6,6 +6,7 @@ interface PaginationButtonProps {
    active?: boolean;
    disabled?: boolean;
 }
+
 const PaginationButton: FC<PaginationButtonProps> = ({ children, active = false, disabled = false, onClick }) => {
    return (
       <button

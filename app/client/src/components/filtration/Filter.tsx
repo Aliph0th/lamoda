@@ -47,7 +47,7 @@ const Filter: FC<FilterProps> = ({
    }, [debouncedColors, debouncedPriceLimits, debouncedQuery, handleParamsChange, highestPrice, lowestPrice]);
 
    return (
-      <div className="sticky top-1 self-start">
+      <div className="min-[850px]:sticky top-1 self-start">
          <input
             type="text"
             value={query}
@@ -66,7 +66,7 @@ const Filter: FC<FilterProps> = ({
                   onChange={handlePriceLimitsChange}
                />
                <span className="font-medium my-1 block">By color</span>
-               <ul className="text-sm font-medium text-gray-900 border border-gray-200 rounded-lg w-8/12">
+               <ul className="text-sm font-medium text-gray-900 border border-gray-200 w-full lg:w-10/12 rounded-lg">
                   {availableColors.map(color => {
                      const checked = selectedColors.includes(color);
                      return (

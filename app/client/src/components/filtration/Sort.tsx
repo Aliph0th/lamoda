@@ -45,7 +45,7 @@ const Sort: FC<SortProps> = ({ availableSorts, currentSort, handleParamsChange }
                      />
                      <label
                         htmlFor={sortType + '_sort'}
-                        className="w-full py-3 text-sm font-medium flex gap-x-1 items-center"
+                        className="w-full py-3 xl:pr-4 text-sm font-medium flex gap-x-1 items-center"
                      >
                         {display[0]}
                         <img

@@ -49,7 +49,7 @@ function App() {
    return (
       <main className="m-auto py-8 w-10/12">
          <h1 className="font-bold text-4xl">Lamoda</h1>
-         <div className="mt-4 grid grid-cols-[2fr_5fr] gap-x-10">
+         <div className="mt-4 grid max-[850px]:grid-cols-1 grid-cols-[2fr_5fr] gap-x-10">
             <Filter productsData={products} metadata={metadata} handleParamsChange={handleParamsChange} />
             <ProductList
                loading={loading}

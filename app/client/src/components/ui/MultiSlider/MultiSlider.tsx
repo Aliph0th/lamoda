@@ -44,7 +44,7 @@ const MultiSlider: FC<MultiSliderProps> = ({ minValue, maxValue, currentMin, cur
    }, [min, max, onChange]);
 
    return (
-      <div className="h-fit mt-3 flex items-center flex-col">
+      <div className="h-fit mt-3 flex items-center flex-col relative">
          <input
             type="range"
             min={minValue}
