@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 
 interface PaginationButtonProps {
    onClick?: () => void;
@@ -19,4 +19,4 @@ const PaginationButton: FC<PaginationButtonProps> = ({ children, active = false,
    );
 };
 
-export default PaginationButton;
+export default memo(PaginationButton);

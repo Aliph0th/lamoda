@@ -1,6 +1,6 @@
 import arrow from '@assets/arrow.svg';
 import doubleArrow from '@assets/double-arrow.svg';
-import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { PAGES_PER_BLOCK, PER_PAGE_VALUES } from '../../../constants';
 import { useDebounce } from '../../../hooks/useDebounce';
 import { FilterParams } from '../../../types';
@@ -22,11 +22,14 @@ const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, perPage: cur
    const handlePerPageChange = (e: ChangeEvent<HTMLSelectElement>) => {
       setPerPage(+e.target.value);
    };
-   const handlePageChange = (pageNumber: number) => {
-      if (pageNumber > 0 && pageNumber <= totalPages) {
-         setPage(pageNumber);
-      }
-   };
+   const handlePageChange = useCallback(
+      (pageNumber: number) => {
+         if (pageNumber > 0 && pageNumber <= totalPages) {
+            setPage(pageNumber);
+         }
+      },
+      [totalPages]
+   );
    useEffect(() => {
       handleParamsChange({ page: debouncedPage.toString(), limit: debouncedPerPage.toString() });
    }, [handleParamsChange, debouncedPage, debouncedPerPage]);
@@ -72,11 +75,11 @@ const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, perPage: cur
          <PaginationButton disabled={page >= totalPages} onClick={() => handlePageChange(page + 1)}>
             <img src={arrow} className="rotate-180" alt="" />
          </PaginationButton>
-         <PaginationButton disabled={page === totalPages} onClick={() => handlePageChange(totalPages)}>
+         <PaginationButton disabled={page >= totalPages} onClick={() => handlePageChange(totalPages)}>
             <img src={doubleArrow} alt="" />
          </PaginationButton>
       </div>
    );
 };
 
-export default Pagination;
+export default memo(Pagination);

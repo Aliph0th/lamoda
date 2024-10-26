@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, FC, ChangeEvent } from 'react';
+import { useCallback, useEffect, useState, FC, ChangeEvent, memo } from 'react';
 import './MultiSlider.css';
 
 interface MultiSliderProps {
@@ -75,4 +75,4 @@ const MultiSlider: FC<MultiSliderProps> = ({ minValue, maxValue, onChange }) => 
    );
 };
 
-export default MultiSlider;
+export default memo(MultiSlider);

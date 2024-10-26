@@ -1,6 +1,6 @@
 import arrow from '@assets/arrow.svg';
 import { SortTypes } from 'common';
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react';
 import { SORT_DISPLAY_NAMES } from '../../constants';
 import { useDebounce } from '../../hooks/useDebounce';
 import { FilterParams } from '../../types';
@@ -62,4 +62,4 @@ const Sort: FC<SortProps> = ({ availableSorts, currentSort, handleParamsChange }
    );
 };
 
-export default Sort;
+export default memo(Sort);

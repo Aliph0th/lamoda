@@ -29,9 +29,15 @@ const ProductList: FC<ProductListProps> = ({ productsData, availableSorts, handl
                />
             </div>
             <div className="mt-3 grid max-[472px]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-               {productsData.products.map(product => (
-                  <ProductItem key={product.id} product={product} />
-               ))}
+               {productsData.totalProducts ? (
+                  <>
+                     {productsData.products.map(product => (
+                        <ProductItem key={product.id} product={product} />
+                     ))}
+                  </>
+               ) : (
+                  <span className="font-medium text-gray-400 text-center col-start-2">No products found</span>
+               )}
             </div>
          </div>
       </>
