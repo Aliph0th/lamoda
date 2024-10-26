@@ -36,10 +36,19 @@ Backend provides following endpoints:
   - `limit` - max number of products per page. **Default: 10**
   - `page` - number of page you want to see. **Default: 1**
 
-- `GET /metadata` - gives metadata about products. Response:
+- `GET /products/metadata` - gives metadata about products. Response:
 
 ```
 {
-  priceLimits: [number, number] // [min, max]
+   highestPrice: number;
+   lowestPrice: number;
+   availableColors: Color[];
+   availableSorts: SortTypes[];
 }
+```
+
+```
+type Color = 'red' | 'blue' | 'yellow' | 'green' | 'purple' | 'white' | 'black';
+
+type SortTypes = 'popular' | 'asc' | 'desc'
 ```
