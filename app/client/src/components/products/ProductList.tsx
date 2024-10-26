@@ -1,21 +1,26 @@
-import { FilterRequest, ProductResponse, SortTypes } from 'common';
+import { ProductResponse, SortTypes } from 'common';
 import { FC } from 'react';
+import { FilterParams } from '../../types';
+import Sort from '../filtration/Sort';
 import Pagination from '../ui/pagination/Pagination';
 import ProductItem from './Product';
-import Sort from '../filtration/Sort';
 
 interface ProductListProps {
    productsData: ProductResponse;
    availableSorts: SortTypes[];
-   handleParamsChange: (filters: FilterRequest) => void;
+   handleParamsChange: (filters: FilterParams) => void;
 }
 
 const ProductList: FC<ProductListProps> = ({ productsData, availableSorts, handleParamsChange }) => {
    return (
       <>
          <div>
-            <div className="flex">
-               <Sort availableSorts={availableSorts} currentSort={productsData.currentSort} />
+            <div className="flex gap-2 flex-col xl:flex-row xl:justify-between items-start xl:items-center">
+               <Sort
+                  availableSorts={availableSorts}
+                  currentSort={productsData.currentSort}
+                  handleParamsChange={handleParamsChange}
+               />
                <Pagination
                   currentPage={productsData.currentPage}
                   totalPages={productsData.totalPages}

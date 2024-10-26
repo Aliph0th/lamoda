@@ -1,10 +1,11 @@
-import { FilterRequest, ProductMetadata, ProductResponse } from 'common';
-import { useEffect, useState } from 'react';
+import { ProductMetadata, ProductResponse } from 'common';
+import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { API } from './api';
 import Filter from './components/filtration/Filter';
 import ProductList from './components/products/ProductList';
 import Loader from './components/ui/Loader';
+import { FilterParams } from './types';
 
 function App() {
    const [searchParams, setSearchParams] = useSearchParams();
@@ -13,27 +14,33 @@ function App() {
    const [metadata, setMetadata] = useState<ProductMetadata>();
 
    useEffect(() => {
-      setLoading(true);
       const fetchData = async () => {
-         const [productResponse, metadataResponse] = await Promise.all([
-            API.get<ProductResponse>('/products', {
-               params: searchParams
-            }),
-            API.get<ProductMetadata>('/products/metadata')
-         ]);
+         setLoading(true);
+         const productResponse = await API.get<ProductResponse>('/products', {
+            params: searchParams
+         });
          setProducts(productResponse.data);
-         setMetadata(metadataResponse.data);
+         if (!metadata) {
+            const { data } = await API.get<ProductMetadata>('/products/metadata');
+            setMetadata(data);
+         }
       };
       fetchData().finally(() => setLoading(false));
-   }, [searchParams]);
+   }, [metadata, searchParams]);
 
-   const handleParamsChange = (filters: FilterRequest) => {
-      const params = new URLSearchParams(searchParams);
-      Object.entries(filters).forEach(([key, value]) => {
-         params.set(key, value);
-      });
-      setSearchParams(params);
-   };
+   const handleParamsChange = useCallback(
+      (filters: FilterParams) => {
+         const params = new URLSearchParams(searchParams);
+         Object.entries(filters).forEach(([key, value]) => {
+            const param = value.toString();
+            if (param) {
+               params.set(key, param);
+            }
+         });
+         setSearchParams(params);
+      },
+      [searchParams, setSearchParams]
+   );
 
    return (
       <main className="m-auto py-8 w-10/12">
@@ -42,8 +49,10 @@ function App() {
             <Filter
                loading={loading || !products}
                totalProducts={products?.totalProducts}
-               priceLimits={metadata?.priceRange}
+               highestPrice={metadata?.highestPrice}
+               lowestPrice={metadata?.lowestPrice}
                availableColors={metadata?.availableColors}
+               handleParamsChange={handleParamsChange}
             />
             {loading || !products || !metadata?.availableSorts ? (
                <Loader />
